@@ -35,7 +35,7 @@ def menu():
     option_actions = {'1': optionA,
                       '2': optionB}
 
-    if option_actions.has_key(selected_option):
+    if selected_option in option_actions:
         response = VoiceResponse()
         option_actions[selected_option](response)
         return twiml(response)
