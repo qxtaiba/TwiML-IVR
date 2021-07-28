@@ -24,7 +24,7 @@ def welcome():
     with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
         g.say(message="Hello. You have reached Q's audio test. ")
         g.say(message="Please press 1 for option A, or Press 2 for option B if you would like to access hidden options.")
-        g.pause(length=10)
+        g.pause(length=5)
 
     return twiml(response)
 
@@ -71,7 +71,7 @@ def optionB(response):
     ) as g:
         g.say("You have selected option B.")
         g.say("To hear option C press 1, to hear option D press 2, or to hear option E press 3.")
-        g.pause(length=10)
+        g.pause(length=5)
 
     return response
 
