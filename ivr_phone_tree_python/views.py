@@ -70,7 +70,7 @@ def optionB_Handler():
 @app.route('/ivr/optionA', methods=['POST'])
 def optionA(response):
     with response.gather(numDigits=1, action=url_for('optionB_Handler'), method="POST") as g:
-        g.play("https://drive.google.com/file/d/18TZnT8yruE5ZmY1_RjfASQs7SzfSvnqn/view?usp=sharing")
+        g.play("https://coral-markhor-2524.twil.io/assets/4_Script_1_Naema.mp3")
         g.say("To return to the main menu, please press any key")
     return response
 
