@@ -23,7 +23,7 @@ def welcome():
     response = VoiceResponse()
     with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
         g.say(message="Hello. You have reached Q's audio test. ")
-        g.say(message="Please press 1 for option A, or Press 2 for option B if you would like to access hidden options.")
+        g.say(message="Please press 1 for option A, or Press 2 for option B to access hidden options.")
         g.pause(length=5)
 
     return twiml(response)
@@ -78,7 +78,7 @@ def optionB(response):
 
 def _redirect_welcome():
     response = VoiceResponse()
-    response.say("Oops. You seem to have selected an invalid option. Let's try again")
+    response.say("Let's try again")
     response.redirect(url_for('welcome'))
 
     return twiml(response)
