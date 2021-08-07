@@ -23,7 +23,7 @@ def welcome():
     response = VoiceResponse()
     with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
         g.say(message="Hello. You have reached Q's audio test. ")
-        g.say(message="Please press 1 for option A, or Press 2 for option B to access hidden options.")
+        g.say(message="Please press 1 for option A, Press 2 for option B to access hidden options, or Press 3 to listen to your options again.")
         g.pause(length=5)
 
     return twiml(response)
@@ -33,7 +33,8 @@ def welcome():
 def menu():
     selected_option = request.form['Digits']
     option_actions = {'1': optionA,
-                      '2': optionB}
+                      '2': optionB,
+                      '3': welcome}
 
     if selected_option in option_actions:
         response = VoiceResponse()
