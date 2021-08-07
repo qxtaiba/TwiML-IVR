@@ -62,8 +62,8 @@ def optionB_Handler():
 def optionA(response):
     with response.gather(numDigits=1, action=url_for('optionB_Handler'), method="POST") as g:
     # g.play("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
-    g.say("yoyooyoyoyoyoyo i love q")
-    g.say("To return to the main menu, please press the star key")
+        g.say("yoyooyoyoyoyoyo i love q")
+        g.say("To return to the main menu, please press the star key")
     return response
 
 @app.route('/ivr/optionB', methods=['POST'])
