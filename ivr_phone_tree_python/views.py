@@ -40,7 +40,7 @@ def menu():
         option_actions[selected_option](response)
         return twiml(response)
 
-    return _redirect_welcome()
+    return redirect_welcome2()
 
 
 @app.route('/ivr/optionB_Handler', methods=['POST'])
@@ -55,10 +55,11 @@ def optionB_Handler():
         response.play(option_actions[selected_option])
         return twiml(response)
         
-    return _redirect_welcome()
+    return redirect_welcome()
 
 
 # private methods
+# @app.route('/ivr/optionA', methods=['POST'])
 def optionA(response):
     with response.gather(numDigits=1, action=url_for('optionB_Handler'), method="POST") as g:
     # g.play("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
@@ -77,10 +78,16 @@ def optionB(response):
 
     return response
 
-
-def _redirect_welcome():
+def redirect_welcome2():
     response = VoiceResponse()
-    response.say("Let's try again")
+    response.say("Oops, you have selected an invalid option. Let's try again.")
+    response.redirect(url_for('welcome'))
+
+    return twiml(response)
+
+
+def redirect_welcome():
+    response = VoiceResponse()
     response.redirect(url_for('welcome'))
 
     return twiml(response)
