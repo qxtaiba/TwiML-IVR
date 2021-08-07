@@ -28,13 +28,20 @@ def welcome():
 
     return twiml(response)
 
+@app.route('/ivr/relistenWelcome', methods=['POST'])
+def relistenWelcome(response):
+    with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
+        g.say(message="Please press 1 for option A, Press 2 for option B to access hidden options, or Press 3 to listen to your options again.")
+        g.pause(length=5)
+
+    return twiml(response)
 
 @app.route('/ivr/menu', methods=['POST'])
 def menu():
     selected_option = request.form['Digits']
     option_actions = {'1': optionA,
                       '2': optionB,
-                      '3': welcome}
+                      '3': relistenWelcome}
 
     if selected_option in option_actions:
         response = VoiceResponse()
