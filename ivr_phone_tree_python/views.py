@@ -1,11 +1,7 @@
-﻿from flask import (
-    flash,
-    render_template,
-    redirect,
-    request,
-    session,
-    url_for,
-)
+﻿################################################################## BOILER PLATE ##################################################################
+
+from flask import flash, render_template, redirect, request, session, url_for
+from werkzeug.utils import append_slash_redirect
 from twilio.twiml.voice_response import VoiceResponse
 
 from ivr_phone_tree_python import app
@@ -13,16 +9,20 @@ from ivr_phone_tree_python.view_helpers import twiml
 
 @app.route('/')
 @app.route('/ivr')
+
 def home():
     return render_template('index.html')
 
+################################################################## BOILER PLATE ##################################################################
+
+################################################################## WELCOME MENU ##################################################################
 
 @app.route('/ivr/welcome', methods=['POST'])
 def welcome():
     response = VoiceResponse()
     with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
-        g.say(message="hello. you have reached tamarbuta's testing studio. ")
-        g.say(message="please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
+        g.say("hello. you have reached tamarbutah's testing studio. ")
+        g.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
         g.pause(length=5)
 
     return twiml(response)
@@ -42,7 +42,32 @@ def menu():
 
     return oopsRedirect_Welcome()
 
-# private methods
+@app.route('/ivr/relistenWelcome', methods=['POST'])
+def relistenWelcome(response):
+    with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
+        g.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
+        g.pause(length=5)
+
+    return twiml(response)
+
+def oopsRedirect_Welcome():
+    response = VoiceResponse()
+    response.say("oops, you have selected an invalid option. let's try again.")
+    response.redirect(url_for('welcome'))
+
+    return twiml(response)
+
+def redirect_welcome():
+    response = VoiceResponse()
+    response.redirect(url_for('welcome'))
+
+    return twiml(response)
+
+
+################################################################## WELCOME MENU ##################################################################
+
+################################################################## OPTION A ##################################################################
+
 @app.route('/ivr/optionA', methods=['POST'])
 def optionA(response):
     with response.gather(numDigits=1, action=url_for('optionA_Handler'), method="POST") as g:
@@ -78,7 +103,7 @@ def optionA_Handler():
 @app.route('/ivr/optionA_EndHandler', methods=['POST'])
 def optionA_EndHandler():
     selected_option = request.form['Digits']
-    option_actions = {'1': optionA,
+    option_actions = {'1': relistenOptionA,
                       '2': relistenWelcome}
 
     if selected_option in option_actions:
@@ -89,11 +114,28 @@ def optionA_EndHandler():
     return oopsRedirect_optionA()
 
 
-# private methods
+@app.route('/ivr/relistenOptionA', methods=['POST'])
+def relistenOptionA(response):
+    with response.gather(num_digits=1, action=url_for('optionA_Handler'), method="POST") as g:
+        g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again.")
+        g.pause(length=5)
+
+    return twiml(response)
+
+def oopsRedirect_optionA():
+    response = VoiceResponse()
+    response.say("oops, you have selected an invalid option. let's try again.")
+    response.redirect(url_for('optionA'))
+
+    return twiml(response)
+
+################################################################## OPTION A ##################################################################
+
+################################################################## OPTION B ##################################################################
 @app.route('/ivr/optionB', methods=['POST'])
 def optionB(response):
     with response.gather(numDigits=1, action=url_for('optionB_Handler'), method="POST") as g:
-        g.say("you have selected the first sub-menu")
+        g.say("you have selected the second sub-menu")
         g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again.")
         g.say("to return to the main menu, please press any key")
     return response
@@ -117,7 +159,7 @@ def optionB_Handler():
         response = VoiceResponse()
         with response.gather(numDigits=1, action=url_for('optionB_EndHandler'), method="POST") as g:
             g.play(option_actions[selected_option])
-            g.say("please press 1 to listen to another conversation, or press 2 to return to the main menu")
+            g.say("please press 1 to hear another musing, or press 2 to return to the main menu")
         return twiml(response)
         
     return redirect_welcome()
@@ -125,7 +167,7 @@ def optionB_Handler():
 @app.route('/ivr/optionB_EndHandler', methods=['POST'])
 def optionB_EndHandler():
     selected_option = request.form['Digits']
-    option_actions = {'1': optionB,
+    option_actions = {'1': relistenOptionA,
                       '2': relistenWelcome}
 
     if selected_option in option_actions:
@@ -135,42 +177,11 @@ def optionB_EndHandler():
 
     return oopsRedirect_optionB()
 
-
-@app.route('/ivr/relistenWelcome', methods=['POST'])
-def relistenWelcome(response):
-    with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
-        g.say(message="Please press 1 for option A, Press 2 for option B, or Press 3 to listen to your options again.")
-        g.pause(length=5)
-
-    return twiml(response)
-
-@app.route('/ivr/relistenOptionA', methods=['POST'])
-def relistenOptionA(response):
-    with response.gather(num_digits=1, action=url_for('optionA_Handler'), method="POST") as g:
-        g.say(message="relisten to option a")
-        g.pause(length=5)
-
-    return twiml(response)
-
 @app.route('/ivr/relistenOptionB', methods=['POST'])
 def relistenOptionB(response):
     with response.gather(num_digits=1, action=url_for('optionB_Handler'), method="POST") as g:
-        g.say(message="relisten to option b")
+        g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again.")
         g.pause(length=5)
-
-    return twiml(response)
-
-def oopsRedirect_Welcome():
-    response = VoiceResponse()
-    response.say("Oops, you have selected an invalid option. Let's try again.")
-    response.redirect(url_for('welcome'))
-
-    return twiml(response)
-
-def oopsRedirect_optionA():
-    response = VoiceResponse()
-    response.say("oops, you have selected an invalid option. let's try again.")
-    response.redirect(url_for('optionA'))
 
     return twiml(response)
 
@@ -181,9 +192,4 @@ def oopsRedirect_optionB():
 
     return twiml(response)
 
-def redirect_welcome():
-    response = VoiceResponse()
-    response.redirect(url_for('welcome'))
-
-    return twiml(response)
-
+################################################################## OPTION B ##################################################################
