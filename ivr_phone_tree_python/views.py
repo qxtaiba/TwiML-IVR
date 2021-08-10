@@ -21,7 +21,7 @@ def home():
 def welcome():
     response = VoiceResponse()
     with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
-        g.say("hello. you have reached tamarbuta's testing studio. ")
+        g.say("hello. you have reached tamarbutah's testing studio. ")
         g.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
         g.pause(length=5)
 
@@ -52,7 +52,7 @@ def relistenWelcome(response):
 
 def oopsRedirect_Welcome():
     response = VoiceResponse()
-    response.say("Oops, you have selected an invalid option. Let's try again.")
+    response.say("oops, you have selected an invalid option. let's try again.")
     response.redirect(url_for('welcome'))
 
     return twiml(response)
@@ -103,7 +103,7 @@ def optionA_Handler():
 @app.route('/ivr/optionA_EndHandler', methods=['POST'])
 def optionA_EndHandler():
     selected_option = request.form['Digits']
-    option_actions = {'1': optionA,
+    option_actions = {'1': relistenOptionA,
                       '2': relistenWelcome}
 
     if selected_option in option_actions:
@@ -167,7 +167,7 @@ def optionB_Handler():
 @app.route('/ivr/optionB_EndHandler', methods=['POST'])
 def optionB_EndHandler():
     selected_option = request.form['Digits']
-    option_actions = {'1': optionB,
+    option_actions = {'1': relistenOptionA,
                       '2': relistenWelcome}
 
     if selected_option in option_actions:
