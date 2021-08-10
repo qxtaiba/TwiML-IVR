@@ -21,8 +21,8 @@ def home():
 def welcome():
     response = VoiceResponse()
     with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
-        g.say(message="hello. you have reached tamarbuta's testing studio. ")
-        g.say(message="please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
+        g.say("hello. you have reached tamarbuta's testing studio. ")
+        g.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
         g.pause(length=5)
 
     return twiml(response)
@@ -45,7 +45,7 @@ def menu():
 @app.route('/ivr/relistenWelcome', methods=['POST'])
 def relistenWelcome(response):
     with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
-        g.say(message="please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
+        g.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
         g.pause(length=5)
 
     return twiml(response)
