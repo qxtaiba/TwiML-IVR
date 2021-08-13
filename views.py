@@ -20,11 +20,11 @@ def home():
 @app.route('/ivr/welcome', methods=['POST'])
 def welcome():
     response = VoiceResponse()
-    with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
-        g.say("hello. you have reached tamarbutah's testing studio.")
-        g.pause(length=1)
-        g.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
-        g.pause(length=5)
+    with response.gather(num_digits=1, action=url_for('menu'), method="POST") as sreeIVR:
+        sreeIVR.say("hello. you have reached tamarbutah's testing studio.")
+        sreeIVR.pause(length=1)
+        sreeIVR.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
+        sreeIVR.pause(length=5)
 
     return twiml(response)
 
@@ -45,9 +45,9 @@ def menu():
 
 @app.route('/ivr/relistenWelcome', methods=['POST'])
 def relistenWelcome(response):
-    with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
-        g.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
-        g.pause(length=5)
+    with response.gather(num_digits=1, action=url_for('menu'), method="POST") as sreeIVR:
+        sreeIVR.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
+        sreeIVR.pause(length=5)
 
     return twiml(response)
 
@@ -71,10 +71,10 @@ def redirect_welcome():
 
 @app.route('/ivr/optionA', methods=['POST'])
 def optionA(response):
-    with response.gather(numDigits=1, action=url_for('optionA_Handler'), method="POST") as g:
-        g.say("you have selected the first sub-menu")
-        g.pause(length=1)
-        g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
+    with response.gather(numDigits=1, action=url_for('optionA_Handler'), method="POST") as sreeIVR:
+        sreeIVR.say("you have selected the first sub-menu")
+        sreeIVR.pause(length=1)
+        sreeIVR.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
     return response
 
 @app.route('/ivr/optionA_Handler', methods=['POST'])
@@ -94,9 +94,9 @@ def optionA_Handler():
         
     elif selected_option in option_actions:
         response = VoiceResponse()
-        with response.gather(numDigits=1, action=url_for('optionA_EndHandler'), method="POST") as g:
-            g.play(option_actions[selected_option])
-            g.say("please press 1 to listen to another conversation, or press 2 to return to the main menu")
+        with response.gather(numDigits=1, action=url_for('optionA_EndHandler'), method="POST") as sreeIVR:
+            sreeIVR.play(option_actions[selected_option])
+            sreeIVR.say("please press 1 to listen to another conversation, or press 2 to return to the main menu")
         return twiml(response)
         
     return redirect_welcome()
@@ -117,9 +117,9 @@ def optionA_EndHandler():
 
 @app.route('/ivr/relistenOptionA', methods=['POST'])
 def relistenOptionA(response):
-    with response.gather(num_digits=1, action=url_for('optionA_Handler'), method="POST") as g:
-        g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
-        g.pause(length=5)
+    with response.gather(num_digits=1, action=url_for('optionA_Handler'), method="POST") as sreeIVR:
+        sreeIVR.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
+        sreeIVR.pause(length=5)
 
     return twiml(response)
 
@@ -135,10 +135,10 @@ def oopsRedirect_optionA():
 ################################################################## OPTION B ##################################################################
 @app.route('/ivr/optionB', methods=['POST'])
 def optionB(response):
-    with response.gather(numDigits=1, action=url_for('optionB_Handler'), method="POST") as g:
-        g.say("you have selected the second sub-menu")
-        g.pause(length=1)
-        g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
+    with response.gather(numDigits=1, action=url_for('optionB_Handler'), method="POST") as sreeIVR:
+        sreeIVR.say("you have selected the second sub-menu")
+        sreeIVR.pause(length=1)
+        sreeIVR.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
     return response
 
 @app.route('/ivr/optionB_Handler', methods=['POST'])
@@ -158,9 +158,9 @@ def optionB_Handler():
         
     elif selected_option in option_actions:
         response = VoiceResponse()
-        with response.gather(numDigits=1, action=url_for('optionB_EndHandler'), method="POST") as g:
-            g.play(option_actions[selected_option])
-            g.say("please press 1 to hear another musing, or press 2 to return to the main menu")
+        with response.gather(numDigits=1, action=url_for('optionB_EndHandler'), method="POST") as sreeIVR:
+            sreeIVR.play(option_actions[selected_option])
+            sreeIVR.say("please press 1 to hear another musing, or press 2 to return to the main menu")
         return twiml(response)
         
     return redirect_welcome()
@@ -180,9 +180,9 @@ def optionB_EndHandler():
 
 @app.route('/ivr/relistenOptionB', methods=['POST'])
 def relistenOptionB(response):
-    with response.gather(num_digits=1, action=url_for('optionB_Handler'), method="POST") as g:
-        g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
-        g.pause(length=5)
+    with response.gather(num_digits=1, action=url_for('optionB_Handler'), method="POST") as sreeIVR:
+        sreeIVR.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
+        sreeIVR.pause(length=5)
 
     return twiml(response)
 
