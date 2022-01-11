@@ -21,10 +21,9 @@ def home():
 def welcome():
     response = VoiceResponse()
     with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
-        g.say("hello. you have reached tamarbutah's testing studio.")
-        g.pause(length=1)
-        g.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
-        g.pause(length=5)
+        g.play("https://coral-markhor-2524.twil.io/assets/1_MainMenu.mp3")
+        g.pause(length=2)
+        g.say("to listen to these options again, please press three")
 
     return twiml(response)
 
@@ -46,7 +45,7 @@ def menu():
 @app.route('/ivr/relistenWelcome', methods=['POST'])
 def relistenWelcome(response):
     with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
-        g.say("please press 1 for the first sub-menu, press 2 for the second sub-menu, or press 3 to listen to your options again.")
+        g.play("https://coral-markhor-2524.twil.io/assets/1_MainMenu.mp3")
         g.pause(length=5)
 
     return twiml(response)
@@ -67,24 +66,23 @@ def redirect_welcome():
 
 ################################################################## WELCOME MENU ##################################################################
 
-################################################################## OPTION A ##################################################################
+################################################################## OPTION 1A ##################################################################
 
 @app.route('/ivr/optionA', methods=['POST'])
 def optionA(response):
     with response.gather(numDigits=1, action=url_for('optionA_Handler'), method="POST") as g:
-        g.say("you have selected the first sub-menu")
+        g.play("https://coral-markhor-2524.twil.io/assets/3_LastMenuEnglish.mp3")
         g.pause(length=1)
-        g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
     return response
 
 @app.route('/ivr/optionA_Handler', methods=['POST'])
 def optionA_Handler():
     selected_option = request.form['Digits']
-    option_actions = {'1': "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                      '2': "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-                      '3': "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-                      '4': "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                      '5': "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    option_actions = {'1': "https://coral-markhor-2524.twil.io/assets/1_Michael.mp3",
+                      '2': "https://coral-markhor-2524.twil.io/assets/2_Gayathri.mp3",
+                      '3': "https://coral-markhor-2524.twil.io/assets/HanaanMum1.mp3",
+                      '4': "https://coral-markhor-2524.twil.io/assets/4_Naema.mp3",
+                      '5': "https://coral-markhor-2524.twil.io/assets/5_Arvy.mp3",
                       '6': relistenOptionA}
 
     if selected_option == "6":
@@ -96,6 +94,7 @@ def optionA_Handler():
         response = VoiceResponse()
         with response.gather(numDigits=1, action=url_for('optionA_EndHandler'), method="POST") as g:
             g.play(option_actions[selected_option])
+            g.pause(length=2)   
             g.say("please press 1 to listen to another conversation, or press 2 to return to the main menu")
         return twiml(response)
         
@@ -118,7 +117,8 @@ def optionA_EndHandler():
 @app.route('/ivr/relistenOptionA', methods=['POST'])
 def relistenOptionA(response):
     with response.gather(num_digits=1, action=url_for('optionA_Handler'), method="POST") as g:
-        g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
+        # g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
+        g.play("https://coral-markhor-2524.twil.io/assets/3_LastMenuEnglish.mp3")
         g.pause(length=5)
 
     return twiml(response)
@@ -130,25 +130,23 @@ def oopsRedirect_optionA():
 
     return twiml(response)
 
-################################################################## OPTION A ##################################################################
+################################################################## OPTION 1A ##################################################################
 
 ################################################################## OPTION B ##################################################################
 @app.route('/ivr/optionB', methods=['POST'])
 def optionB(response):
     with response.gather(numDigits=1, action=url_for('optionB_Handler'), method="POST") as g:
-        g.say("you have selected the second sub-menu")
-        g.pause(length=1)
-        g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
+        g.play("https://coral-markhor-2524.twil.io/assets/5_LastMenuMalayalam.mp3")
     return response
 
 @app.route('/ivr/optionB_Handler', methods=['POST'])
 def optionB_Handler():
     selected_option = request.form['Digits']
-    option_actions = {'1': "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                      '2': "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-                      '3': "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-                      '4': "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                      '5': "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    option_actions = {'1': "https://coral-markhor-2524.twil.io/assets/1_Michael.mp3",
+                      '2': "https://coral-markhor-2524.twil.io/assets/2_Gayathri.mp3",
+                      '3': "https://coral-markhor-2524.twil.io/assets/HanaanMum1.mp3",
+                      '4': "https://coral-markhor-2524.twil.io/assets/4_Naema.mp3",
+                      '5': "https://coral-markhor-2524.twil.io/assets/5_Arvy.mp3",
                       '6': relistenOptionB}
 
     if selected_option == "6":
@@ -160,7 +158,8 @@ def optionB_Handler():
         response = VoiceResponse()
         with response.gather(numDigits=1, action=url_for('optionB_EndHandler'), method="POST") as g:
             g.play(option_actions[selected_option])
-            g.say("please press 1 to hear another musing, or press 2 to return to the main menu")
+            g.pause(length=2)   
+            g.say("please press 1 to hear another conversation, or press 2 to return to the main menu")
         return twiml(response)
         
     return redirect_welcome()
@@ -181,7 +180,8 @@ def optionB_EndHandler():
 @app.route('/ivr/relistenOptionB', methods=['POST'])
 def relistenOptionB(response):
     with response.gather(num_digits=1, action=url_for('optionB_Handler'), method="POST") as g:
-        g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
+        # g.say("please press 1 for option 1A, press 2 for option 1B, press 3 for option 1C, press 4 for option 1D, press 5 for option 1E, or press 6 to listen to your options again. to return to the main menu, please press any key")
+        g.play("https://coral-markhor-2524.twil.io/assets/5_LastMenuMalayalam.mp3")
         g.pause(length=5)
 
     return twiml(response)
