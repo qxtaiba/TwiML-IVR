@@ -78,11 +78,11 @@ def optionA(response):
 @app.route('/ivr/optionA_Handler', methods=['POST'])
 def optionA_Handler():
     selected_option = request.form['Digits']
-    option_actions = {'1': "https://coral-markhor-2524.twil.io/assets/1_Michael.mp3",
-                      '2': "https://coral-markhor-2524.twil.io/assets/2_Gayathri.mp3",
-                      '3': "https://coral-markhor-2524.twil.io/assets/HanaanMum1.mp3",
-                      '4': "https://coral-markhor-2524.twil.io/assets/4_Naema.mp3",
-                      '5': "https://coral-markhor-2524.twil.io/assets/5_Arvy.mp3",
+    option_actions = {'1': "https://coral-markhor-2524.twil.io/assets/1_Script%206_Michael.m4a",
+                      '2': "https://coral-markhor-2524.twil.io/assets/2_Gayathri.m4a",
+                      '3': "https://coral-markhor-2524.twil.io/assets/HanaanMum1.m4a",
+                      '4': "https://coral-markhor-2524.twil.io/assets/4_Script_1_Naema.mp3",
+                      '5': "https://coral-markhor-2524.twil.io/assets/5_Arvy.wav",
                       '6': relistenOptionA}
 
     if selected_option == "6":
@@ -142,11 +142,11 @@ def optionB(response):
 @app.route('/ivr/optionB_Handler', methods=['POST'])
 def optionB_Handler():
     selected_option = request.form['Digits']
-    option_actions = {'1': "https://coral-markhor-2524.twil.io/assets/1_Michael.mp3",
-                      '2': "https://coral-markhor-2524.twil.io/assets/2_Gayathri.mp3",
-                      '3': "https://coral-markhor-2524.twil.io/assets/HanaanMum1.mp3",
-                      '4': "https://coral-markhor-2524.twil.io/assets/4_Naema.mp3",
-                      '5': "https://coral-markhor-2524.twil.io/assets/5_Arvy.mp3",
+    option_actions = {'1': "https://coral-markhor-2524.twil.io/assets/1_Script%206_Michael.m4a",
+                      '2': "https://coral-markhor-2524.twil.io/assets/2_Gayathri.m4a",
+                      '3': "https://coral-markhor-2524.twil.io/assets/HanaanMum1.m4a",
+                      '4': "https://coral-markhor-2524.twil.io/assets/4_Script_1_Naema.mp3",
+                      '5': "https://coral-markhor-2524.twil.io/assets/5_Arvy.wav",
                       '6': relistenOptionB}
 
     if selected_option == "6":
