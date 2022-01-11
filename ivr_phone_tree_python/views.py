@@ -72,7 +72,6 @@ def redirect_welcome():
 def optionA(response):
     with response.gather(numDigits=1, action=url_for('optionA_Handler'), method="POST") as g:
         g.play("https://coral-markhor-2524.twil.io/assets/3_LastMenuEnglish.mp3")
-        g.pause(length=1)
     return response
 
 @app.route('/ivr/optionA_Handler', methods=['POST'])
